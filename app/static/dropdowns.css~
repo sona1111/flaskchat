@@ -1,0 +1,83 @@
+a:link {color: #FEFEFE;}
+a:visited {color: #FEFEFE;}
+
+nav {position: relative; left: 50%; float: left;
+     font-size:1.4em;
+}     
+
+.navmenu,
+.navmenu ul,
+.navmenu li
+{
+  padding: 0px;
+  margin: 0px;
+  
+}
+.navmenu > li
+{
+  float: left;
+}
+.navmenu li
+{
+  list-style-type: none;
+  border: 1px solid #3366cc;
+  color: #FEFEFE;
+  font-weight:700;
+  background: -webkit-linear-gradient(top, #8a8a8a 0%, #707070 50%, #626262 51%, #787878 100%);
+  padding: 2px;
+}
+.navmenu ul
+{
+  display: none;
+  position: absolute;
+  margin-left: -3px;
+  margin-top: 2px;
+}
+.navmenu li:hover > ul
+{
+  display: block;
+}
+.navmenu ul.parent_hover
+{
+  display: block;
+}
+.navmenu a
+{
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+.navmenu li:hover
+{
+  background-color: #f8f8fb;
+}
+.navmenu li.hover,
+.navmenu a:hover
+{
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #646464), color-stop(100%, #4a4a4a));
+}
+.navmenu a:active
+{
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #646464), color-stop(100%, #4a4a4a));
+}
+
+.navmenu ul ul
+{
+  margin-top: -1.2em;
+  left: 99%;
+}
+.navmenu span
+{
+  display: block;
+}
+.navmenu
+{
+  
+   position: relative; left: -50%; float: left;
+  background-color: #6699FF;
+}
+.endmenu
+{
+  clear: left;
+}
+}

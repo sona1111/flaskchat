@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<title>Login</title>
+</head>
+
+
+<body>
+
+ <center> 
+
+
+<form style = "border-style:solid; border-width: 5px; border-color:blue;
+ height: 70px; width: 12%" action="" method="post" name="login">
+    {{form.hidden_tag()}}
+    <p>
+        
+        Username:{{form.username()}}<br><br>
+        <input type="submit" value="Login">
+    </p>
+
+   
+</form></center>
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div style="border:red solid 5px">
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul></div>
+  {% endif %}
+{% endwith %}
+
+
+</body>
+
+</html>

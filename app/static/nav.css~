@@ -1,0 +1,109 @@
+#readbtn{float:left;
+         margin-top:122px;
+}
+
+#watchbtn{float:right;
+          margin-top:125px;
+}         
+
+#lastchbtn{float:left;
+           margin-left:227px;
+           margin-top:-26px;
+}
+
+#nextchbtn{float:right;
+           margin-right:216px;
+           margin-top:-17px;
+}
+
+
+
+/*-----------------------------------------*/
+
+#storymenu{background-color:#19508a;
+           border:yellow solid 4px;
+}
+
+#storymenu:hover{border:yellow outset 4px;}
+#storymenu:active{border:yellow inset 4px;}
+
+#storymenu li{border:#8a6ef9 solid 4px;}
+#storymenu li:hover {border:#8a6ef9 outset 4px;}
+#storymenu li:active {border:#8a6ef9 inset 4px;}
+nav{border:red solid 5px;
+    font-size:1.2em;
+    padding:10px;
+    background-color:rgba(10,10,10,0.7);
+    -webkit-transition: border 3s ease-in-out;
+    -webkit-border-radius: 10px;
+    -moz-transition: border 3s ease-in-out;
+    -moz-border-radius: 10px;
+}
+
+nav div{float:left;
+        position:relative;
+        left:50%;
+}
+
+nav div ul{float:left;
+           position:relative;
+           left:-50%;
+}
+
+nav ul{list-style:none;
+       margin: 0;
+       padding: 0;
+       display:inline-block;
+               
+}
+
+nav br{clear:both;}
+
+nav ul li:hover{background-color:#8c508a;
+                border:#66FF66 outset 4px;
+                border-right:0;
+}
+
+nav ul li:active{background-color:#8c508a;
+                border:#66FF66 inset 4px;
+                border-right:0;
+}
+
+nav li{float:left;
+       position:relative;
+       width:10em;
+       background-color:blue;
+       padding:5px;
+       border: #66FF66 solid 4px;
+       border-right:0;
+       
+}
+
+
+
+nav li:last-child{border-right:#66FF66 solid 4px;
+}
+nav li:last-child:hover{border-right:#66FF66 outset 4px;
+}
+nav li:last-child:active{border-right:#66FF66 inset 4px;
+}
+
+nav ul li ul li{border-right:#66FF66 solid 4px;
+                border-top:0;
+}
+
+nav ul li ul{display:none;
+             position: absolute;
+             left:-4px;
+             top:36px;
+             
+}
+
+nav li > nav ul {
+ top: auto;
+ left: auto;
+ }
+
+nav li:hover ul { display: block; }
+
+

@@ -1,0 +1,74 @@
+#storyaudio{position:relative;
+            margin:40px auto;
+            width:900px;
+            font-size:20px;
+            display:none;
+
+}
+
+#storyaudio article{border:#d2b48c groove 5px;
+                        -webkit-border-radius:15px;
+                        -moz-border-radius:15px;
+                        background-color:#e2cfb5;
+                        padding:10px;
+                        height:740px;
+                        overflow:auto;
+}
+
+#storyaudio .chimg{-webkit-border-radius:15px;
+                  
+}
+
+
+#storyaudio .genericbtn{font-size:45px;
+            display:inline-block;
+            border:green outset 5px;
+            padding:4px;
+            background-color:#e2cfb5;
+            text-decoration:none;
+            position:absolute;
+            -webkit-border-radius:15px;
+            -moz-border-radius:15px;
+}
+
+#storyaudio .genericbtn:active{border:green inset 5px;
+}
+
+
+
+#storyaudio .watchbtn{-webkit-transform:rotate(90deg);
+          -moz-transform:rotate(90deg);
+          top:850px;right:-218px;
+          
+}
+#storyaudio .readbtn{-webkit-transform:rotate(90deg);
+           -moz-transform:rotate(90deg);
+           top:470px;right:-190px;
+           
+           
+}
+
+#storyaudio .lastchbtn{bottom:71px;left:143px;
+           font-size:38px;
+           position:static;
+           margin:5px;
+           float:left;
+
+}
+#storyaudio .nextchbtn{bottom:67px;right:146px;
+           font-size:38px;
+           position:static;
+           margin:5px;
+           float:right;
+
+}
+
+.audiobox {padding:5px;
+           margin:5px;
+           border:#d2b48c groove 5px;
+           -webkit-border-radius:15px;
+           -moz-border-radius:15px;
+           background-color:#e2cfb5;
+}           
+
+

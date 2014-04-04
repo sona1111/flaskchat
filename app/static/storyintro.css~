@@ -1,0 +1,60 @@
+#storyintro{position:relative;
+            border:blue solid 5px;
+            margin:40px auto;
+            width:900px;
+            height:900px;
+            display:none;
+}
+
+#storyintro #circlecontent{width:500px;
+               height:500px;
+               left:198px;
+               top:200px;
+               position:absolute;
+               overflow:auto;
+               
+}
+
+#storyintro #circlecontent .chimg{
+}
+
+
+#storyintro .ringimg{position:absolute;
+                z-index:-10;
+                width:100%;
+                height:100%}
+
+#storyintro .genericbtn{font-size:75px;
+            display:inline-block;
+            text-decoration:none;
+            position:absolute;
+}
+
+#storyintro .readbtn{top:0px;left:260px;
+}
+
+#storyintro .watchbtn{-webkit-transform:rotate(90deg);
+          -moz-transform:rotate(90deg);
+          top:406px;right:-233px;
+}
+#storyintro .listenbtn{-webkit-transform:rotate(-90deg);
+           -moz-transform:rotate(-90deg);
+           top:405px;left:-176px;
+}
+
+#storyintro .lastchbtn{bottom:71px;left:143px;
+           font-size:38px;
+           -webkit-transform:rotate(27deg);
+           -moz-transform:rotate(27deg);
+}
+#storyintro .nextchbtn{bottom:67px;right:146px;
+           font-size:38px;
+           -webkit-transform:rotate(-27deg);
+           -moz-transform:rotate(-27deg);
+}
+
+#storyintro .chpicture{-webkit-border-radius:15px;
+}
+
+
+

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">  
+<title>DarkBasicTest</title>
+<link rel="stylesheet" href="static/dropdowns.css">
+<style>
+
+html{overflow-x:hidden;}
+
+body {background: -webkit-gradient(linear, left top, right top, color-stop(0%,#66a8ff), color-stop(100%,#000000), color-stop(100%,#7db9e8)); 
+    -webkit-transform-style: preserve-3d;
+    margin:0;
+    font-family:sans-serif;
+    
+
+}
+
+#wrap {-webkit-transform-style: preserve-3d;}
+
+
+aside {-webkit-perspective:500000px;
+       float:right;
+       margin-right:70px;
+       position:relative;
+       -webkit-transform-style: preserve-3d;
+       z-index:0;
+       
+}
+
+aside section div {width:20px;
+           height:20px;
+           
+           position:absolute;
+           margin: 0 auto;
+           background-image:url(static/sky.png);
+           -webkit-transform-style: preserve-3d;
+           
+}
+
+aside section{
+              margin:20px 4px;
+              position:absolute;
+              margin-left:49%;
+              -webkit-transform: translateZ(0px) rotateY(0deg);
+              -webkit-transform-style: preserve-3d;
+              -webkit-transition: -webkit-transform 1s;
+              
+}
+
+header {
+        width:100%;
+        height:150px;
+        font-size:1em;
+        color:white;
+        background-image:url(static/header1.jpg);
+     background-size:100% 140px;
+     background-repeat:no-repeat;
+     margin-top:-20px;
+     
+        
+}
+
+header h2 {text-align:center}
+
+article {-webkit-perspective:100000px;
+         
+         position:absolute;
+         right:-67px;
+         margin-top:8.5%;
+         margin-bottom:10%;
+         
+         -webkit-transform-style: preserve-3d;
+         
+}
+
+#leftarrow{background-image:url(static/left.png);
+	   position:absolute;
+	   top:97px;
+	   right:70px;
+	   width:65px; height:44px;
+}
+
+#rightarrow{background-image:url(static/right.png);
+	   position:absolute;
+	   top:97px;
+	   right:2px;
+	   width:65px; height:44px;
+}		   
+
+#pipe{background-image:url(static/cyl2.png);
+     background-position-x:0px;
+     background-position-y:0px;
+     width:170px;height:170px;
+     position:absolute;
+     z-index:-10;
+     top:80px;right:-18px;}
+     
+#shock{background-image:url(static/shock.gif);
+     background-size:10px 1000px;
+     width:10px;height:1000px;
+     background-repeat:no-repeat;
+     left:0px;
+     z-index:-20;
+     position:absolute;
+     top:24px;
+     -webkit-transform:translateY(178px);
+     }
+
+article section{
+              
+              position:absolute;
+              /*width:inherit;*/
+              -webkit-transform: translateZ(0px) rotateY(0deg);
+              -webkit-transform-style: preserve-3d;
+              -webkit-transition: -webkit-transform 1s;
+}
+
+article section div {width:inherit;
+           
+           background-color:rgba(150,40,40,0.8);
+           /*-webkit-box-shadow: 10px 10px 10px #000;*/
+           position:absolute;
+           -webkit-transform-style: preserve-3d;
+           /*border:yellow solid 2px;*/
+           font-size:45px;
+           /*padding:10px;*/
+           right:0;
+           -webkit-backface-visibility:visible;
+           -webkit-transition: -webkit-transform 1s;
+           
+           
+          
+           
+}
+
+#newpost{background-color:rgba(40,150,40,0.9);
+         -webkit-transform: rotateY(-180deg) translateX(1px);
+         -webkit-transform-style: preserve-3d;
+         -webkit-backface-visibility:visible;
+         display:none;
+}
+
+#forums{background-color:rgba(140,70,40,0.9);
+         -webkit-transform: rotateY(-180deg) translateX(1px);
+         -webkit-transform-style: preserve-3d;
+         -webkit-backface-visibility:visible;display:none;
+}
+
+#contactinfo{background-color:rgba(40,150,140,0.9);
+         -webkit-transform: rotateY(-180deg) translateX(1px);
+         -webkit-transform-style: preserve-3d;
+         -webkit-backface-visibility:visible;display:none;
+}
+
+#newpost input{font-size:25px;}
+#newpost textarea{width:80%;
+                  height:300px;
+                  font-size:25px;
+}
+
+footer{display:none;
+clear:both;
+       width:100%;
+        height:120px;
+        font-size:1em;
+        text-align:center;
+        font-style:italic;
+        padding:10px;
+        position:relative;
+        color:white;
+        background-image:url(static/header1.jpg);
+     background-size:100% 140px;
+     background-repeat:no-repeat;
+    
+       
+}
+
+address{background: rgba(102,168,255,0.7);height:90%;}
+
+#pipe2{background-image:url(static/cyl2.png);
+     -webkit-transform: scaleY(-1);
+     background-position-x:0px;
+     background-position-y:0px;
+     width:170px;height:170px;
+     position:absolute;
+     z-index:-10;
+     top:-95px;right:-18px;}
+     
+.pipe3{background-image:url(static/cyl3.png);     
+     width:170px;height:170px;
+     position:absolute;     
+     top:-95px;right:-18px;}
+
+/*nav ul{list-style-type:none;       
+}
+
+nav ul li{display:inline;
+       padding:4px;
+       border:purple outset 2px;
+}*/
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script>
+$(document).ready(function() {
+
+    
+    //load post data from mongo
+    
+	    
+	 getPosts = $.getJSON('/process', function(data) {
+	    	  jposts = [];	    	  
+		  for(n=0;n<data.r.length;n++){
+		  
+		  jposts.push(data.r[n]);
+		  
+		  };
+	    } );
+	    
+    
+    //form validation client side
+    $('#makepost').validate({
+        rules: {
+            postcontent: 'required'
+        }
+    });
+
+    
+    
+    //fix 'links' in upper nav
+    $( "nav a" ).click(function( event ) {
+  	event.preventDefault(); 
+    });
+    
+    //make the rotating panels
+    currentdeg = 0;
+    
+    //width = $('article section div').width();
+    var width = 1100;
+    //var jposts = [{{ posts|safe }}];
+    
+    
+    var divWidth = ($('html').width()*0.6)
+    //$('article').css('margin-left',(divWidth*0.58)+'px');
+    
+    var tlr = -1*(((divWidth*0.4)/2))
+    
+    
+    //var divWidth = $('html').width();
+    //$('article section div').css('width',(divWidth*0.80)+'px');
+    
+    
+    
+    //this runs after mongo db finishes
+    getPosts.done(function (){
+    
+	    var numPanels = jposts.length;
+	    var degInc = 360/numPanels;
+	    var pages = [];
+	    
+	    for (n=0;n<numPanels;n++){
+	    
+	    
+	    $('article section').append('<div class="blogpost active">'+jposts[n]+'</div>')
+	    pages.push($('article section div:last-child')[0])
+	    $('article section div:last-child').css('-webkit-transform','rotateY('+(-1*conv2pie(n*degInc))+'deg) translateX('+tlr+'px)');
+		                           //    .css('top',(-5000*n)+'px');
+	    };
+	    
+	    
+	    
+	    //Find the largest post to apply the correct height
+	    var t=0; 
+	    $('article section div').each(function () {
+		$this = $(this);
+		if ( $this.outerHeight() > t ) {
+		    t=$this.outerHeight();
+		}
+	    });
+	    $('article').height(t);
+    
+    
+
+    
+    function turnPage(index){    	
+    	
+    	//I don't even know, I just messed around with it until it worked...
+        var numPanels = $('.active').length
+        var degInc = 360/numPanels;
+        var diff = ($('article section div').length)-numPanels;        
+        var i = (index-diff+Math.abs(index-diff));
+        
+        for (n=0;n<(numPanels);n++){
+            $('.active:eq('+(n)+')').css('-webkit-transform','rotateY('+(-1*conv2pie((n+i)*degInc))+'deg) translateX('+tlr+'px)');
+            
+        };
+    };
+    
+    function turnPage2(index){    	
+    	
+    	//I don't even know, I just messed around with it until it worked...
+        var numPanels = $('.active').length
+        var degInc = 360/numPanels;
+        
+        
+        for (n=0;n<(numPanels);n++){
+            $('.active:eq('+(n)+')').css('-webkit-transform','rotateY('+(-1*conv2pie((n+index)*degInc))+'deg) translateX('+tlr+'px)');
+            
+        };
+    };
+    
+
+
+    var h = t+75;
+    
+    
+        
+    //make all of the little dot thingies
+    currentdeg = 0;
+    //edit this yshift to push down the darkbasic thingy
+    yshift = 192;
+    for(n=0;n<(h/25);n++){
+        $('aside section').append('<div class="particle"></div>');
+        $('aside section div:last-child').css('-webkit-transform','rotateY('+currentdeg+'deg) translateY('+yshift+'px) translateZ(50px)');
+        currentdeg += 15
+        yshift += 25
+    };
+    
+    //set the height of shock
+    $('#shock').css({"background-size":"10px "+(h+50)+"px",
+    		     "height":(h+25)+"px"});
+    $('article section div').css('height',(h-25)+"px")
+    
+    $(document).scroll(function(){
+    var s = $(document).scrollTop();
+    
+    currentdeg2 = 0;
+    yshift2 = 192;
+    for(n=0;n<(h/25);n++){
+         $('.particle:eq('+n+')').css('-webkit-transform','rotateY('+(currentdeg2+(s*1.5))+'deg) translateY('+yshift2+'px) translateZ(50px)');
+        currentdeg2 += 15
+        yshift2 += 25
+    };
+    });
+    
+    
+      
+    //I did not think this up but its pretty cool...
+    function conv2pie(input){
+    input = input*3/4
+    a=Math.floor(input/270);
+    b=(((input%270)+270)%270);
+    out=a*360+b;
+    return out
+    };
+        
+
+
+    //must find out how to get curent angle and comtinue increasing past 360...
+    r = 0;
+    d = 1;
+    somedeg = 0;
+    
+    
+    $('nav #newpostbtn').click(function(){
+    	d += 1000;
+	$('#newpost').addClass('active');
+	i = $('#newpost').index()
+	turnPage(i);            
+	$('aside section').css('-webkit-transform','translateZ(0px) rotateY('+d+'deg)');
+    });
+    
+    $('nav #contactinfobtn').click(function(){
+    	d += 1000;
+	$('#contactinfo').addClass('active');
+	i = $('#contactinfo').index()
+	turnPage(i);            
+	$('aside section').css('-webkit-transform','translateZ(0px) rotateY('+d+'deg)');
+    });
+    
+    $('nav #forumsbtn').click(function(){
+    	d += 1000;
+	$('#forums').addClass('active');
+	i = $('#forums').index()
+	turnPage(i);            
+	$('aside section').css('-webkit-transform','translateZ(0px) rotateY('+d+'deg)');
+    });
+    
+    $('header #leftarrow').click(function(){
+    	somedeg = (($(this).index())*90);
+    	removeSpecial()
+	r += 1;
+	d -= 500;
+	turnPage2(1*r);
+	$('aside section').css('-webkit-transform','translateZ(0px) rotateY('+d+'deg)');   
+    });
+    
+    $('header #rightarrow').click(function(){
+    	somedeg = (($(this).index())*90);
+    	removeSpecial()
+	r -= 1;
+	d += 500;
+	turnPage2(1*r);
+	$('aside section').css('-webkit-transform','translateZ(0px) rotateY('+d+'deg)');   
+    });
+    
+    function removeSpecial(){
+        $("article section div").not(".blogpost").removeClass('active').css('-webkit-transform','rotateY(-180deg) translateX('+tlr+'px)');
+    };
+    
+    $('article section div').css('width',(divWidth)+'px');
+    
+    //$('.blogpost').css('right', '70px');
+    });
+    
+    
+    
+    
+
+});
+
+
+
+
+</script>
+</head>
+<body style="">
+
+<aside id="cont_side"><div id="shock"></div>
+    <section class="ring"></section>
+</aside>
+
+<div id="pipe"></div>
+<!--<div class="pipe3"></div>-->
+<header><h2>Paul's Blog</h2>
+
+<nav>
+
+<ul class="navmenu">
+  <li><a href="">Home</a></li>
+  <li><a href="">Popular Tags</a><ul>
+	  <li><a href="">Item 1</a></li>
+	  <li><a href="">Item 2</a></li>
+	  <li><a href="">with submenus</a></li>
+  	  <li><a href="">Item 4</a></li>
+ </ul></li>
+ <li><a href="">Non-Blog Posts</a><ul>
+      <li><a href="" id="forumsbtn">Forums</a></li>
+      <li><a href="" id="contactinfobtn">Additional Contact Information</a></li>
+ </ul></li>
+ <li><a href="" id="newpostbtn">Create New Post</a><ul>
+     <!--<li><a href="">has items</a></li>
+     <li><a href="">but no submenus</a></li>-->
+ </ul></li>
+   
+    </ul>
+
+
+</nav>
+<div id="leftarrow"></div>
+<div id="rightarrow"></div>
+</header>
+<div id="wrap">
+<article><section>
+    
+    <div id="contactinfo">
+    	<h2>Contact Information</h2>
+    </div>
+    
+    <div id="forums">
+    	<h2>Forums</h2>
+    </div>
+        
+    <div id="newpost">
+    	<h2>Create a new post:</h2>
+        <form action="" method="post" id="makepost" name="makepost">
+        {{form.hidden_tag()}}
+        <p>{{form.postcontent()}}</p>
+        <input type="submit" value="Post">
+        </form>
+    </div>
+    
+    
+</section></article>
+</div>
+
+
+
+
+<footer><div id="pipe2"></div><address>
+An exercise in impractical web design - by Paul Jewell<br>
+g00228389@smail.raritanval.edu<br>
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</address></footer>
+
+
+</body></html>

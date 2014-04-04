@@ -1,0 +1,188 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>
+<meta charset="utf-8" />  
+<title>Blank HTML 5 Template</title>  
+
+<style>
+
+footer{margin:20px;
+       border:blue solid 2px;
+       outline:purple dashed 5px;
+       background-color:#99E6FF;
+       }
+       
+input[type="text"], select{width:300px;
+
+}
+
+</style>
+
+<script type="text/javascript" src="/static/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    var basePath = 'static/media/';
+    $('#newbook').hide();
+    
+    
+    
+    ident = "{{ident}}";
+    $.get('/getbookinfo/'+ident,function(data){
+
+        //we will try beginning with a naming convention using filenames to build the preloads
+        //generate all path information first
+        paths = {};
+        texts = [];
+        audios = [];
+        videos = [];
+        chtitles = [];
+        chimgs = [];
+
+        
+        chapters = [];
+        
+        for(i=1;i<data['chCount']+1;i++){
+            chapters.push('ch'+i);
+        };
+        
+        //generate the arrays
+        //audio and video are paths, text is data (html usually, though plaintext could technically work too...)
+        for(i=0;i<chapters.length;i++){
+            
+            texts.push(data['data'][i]['text']);
+            chimgs.push(basePath+ident+'/'+chapters[i]+'/chimage.png');
+            chtitles.push(data['data'][i]['title']);            
+            audios.push(basePath+ident+'/'+chapters[i]+'/audio.mp3');
+            videos.push(basePath+ident+'/'+chapters[i]+'/movie.ogg');
+            
+            
+            
+            
+        };
+        
+        //put the arrays into the main paths object
+        storydata = {"title":"{{title}}",
+                                "bgimage":basePath+ident+'/bgtile.jpg',
+                                "chtitles":chtitles,
+                                "chimgs":chimgs,
+                                "texts":texts,
+                                "audios":audios,
+                                "videos":videos};
+                                
+                                
+        console.log(storydata);
+    
+        $('#chapters').change(function(){
+    
+            if($('#chapters').val() == 'new'){
+                $('#admin2')[0].submit();
+                
+                
+            }else{
+                ch = $('#chapters').prop("selectedIndex")-1;
+                if(ch>-1){
+                    $('#title').val(storydata['title']);
+                    $('#chtitle').val(storydata['chtitles'][ch]);
+                    $('#text').text(storydata['texts'][ch]);
+                }else{
+                    $('#title').val('');
+                    $('#chtitle').val('');
+                    $('#text').text('');
+                }
+            }
+        });
+
+    });
+    
+    $('#books').change(function(){
+    
+        if($('#books').val() == 'new'){
+            $('#newbook').show();
+        }else{
+            $('#newbook').hide();
+        };
+    });
+    
+    $('#newbooktitle').on('input', function(){
+    
+        inp = $('#newbooktitle').val();
+        $('#newbookident').val((inp.replace(/[^A-Z0-9]/ig, "")).toLowerCase());
+    
+    });
+    
+    $("#admin #remove").change(function() {
+    if(this.checked) {
+        if(confirm("Are you sure? \n \n THIS PROCESS IS UNREVERSIBLE AND ALL MEDIA AND TEXT WILL BE DELETED!")){
+        }
+    else
+    {
+        $('#admin #remove').attr('checked', false);
+    }
+    }else{};
+});
+    
+
+});
+</script>
+
+</head>  
+<body>
+<h1>Edit</h1>
+<br>
+<br>
+{% if form %}
+<form action="" method="post" id = "admin" ame="admin">
+    {{form.hidden_tag()}}
+    <p>
+        <br>
+        {{form.books}}<br>
+        <section id="newbook">
+        Enter Title{{form.newbooktitle}}<br>
+        This should be fine the way it is but if you need to change it keep it lower case with no spaces or special characters please...<br>
+        {{form.newbookident}}<br>
+        </section>
+        Remove selected book {{form.remove}}
+        
+    </p>
+    
+    <p><input type="submit" value="Next" name = "btn"></p>
+</form>
+{% endif %}
+
+{% if form2 %}
+<form action="" method="post" id = 'admin2' name="admin2" enctype=multipart/form-data>
+{{form2.hidden_tag()}}
+
+        {{form2.chapters}}<br>
+        {{form2.title}}<br>
+        {{form2.chtitle}}<br>
+        {{form2.text(cols="35", rows="20")|safe}}<br>
+        Image: about 320 by 240 pixels, .png format {{form2.image}}<br>
+        ogg format audio{{form2.audio}}<br>
+        ogg format video{{form2.oggvideo}}<br>
+        mp4 format video{{form2.mp4video}}<br>
+        Remove selected chapter <strong>Warning, all media files and text will be unrecoverable after deletion</strong>
+        {{form2.remove}}<br>
+        
+        
+        
+
+    <p><input type="submit" value="Save" name = "btn"></p>
+</form>
+{% endif %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <footer>
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+   </footer>
+  {% endif %}
+{% endwith %}
+</body>
+</html>

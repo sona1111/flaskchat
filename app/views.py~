@@ -1,0 +1,45 @@
+#from app import app
+#from app import app as socketio
+from flask import Flask, render_template, flash, redirect, jsonify, send_file, request
+from forms import adminForm, bookForm
+from flask.ext.socketio import  SocketIO, emit
+
+import pymongo
+
+import cStringIO
+import os
+import shutil
+
+app = Flask(__name__)
+app.debug = True
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
+
+
+
+connection_string = 'www.jewellsmusicstudio.tk:12345'
+connection = pymongo.MongoClient(connection_string)
+database = connection.edugen
+msgs = database.msgs
+
+
+@app.route('/', methods = ['GET', 'POST'])
+@app.route('/index', methods = ['GET', 'POST'])
+def index():
+    
+            
+    
+    
+    return render_template("main.html")
+
+@socketio.on('sometest')
+def add_message(message):
+    print message
+    #msgs.insert({'post':message})
+    if message['data'] != 'connected':
+    
+        emit('update', {'post':message, 'count':10}, broadcast=True)
+
+
+
+

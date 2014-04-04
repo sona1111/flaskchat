@@ -1,0 +1,68 @@
+#storyvideo{position:relative;
+            margin:40px auto;
+            width:1000px;
+            font-size:20px;
+            display:none;
+
+}
+
+#storyvideo video{width:100%}
+
+#storyvideo section{border:#d2b48c groove 5px;
+                        -webkit-border-radius:15px;
+                        -moz-border-radius:15px;
+                        background-color:#e2cfb5;
+                        padding:10px;
+                        overflow:auto;
+}
+
+#storyvideo .chimg{-webkit-border-radius:15px;
+                  
+}
+
+
+#storyvideo .genericbtn{font-size:45px;
+            display:inline-block;
+            border:green outset 5px;
+            padding:4px;
+            background-color:#e2cfb5;
+            text-decoration:none;
+            position:absolute;
+            -webkit-border-radius:15px;
+            -moz-border-radius:15px;
+}
+
+#storyvideo .genericbtn:active{border:green inset 5px;
+}
+
+
+
+#storyvideo .readbtn{-webkit-transform:rotate(90deg);
+          -moz-transform:rotate(90deg);
+          top:230px;right:-218px;
+          
+}
+#storyvideo .listenbtn{-webkit-transform:rotate(90deg);
+           -moz-transform:rotate(90deg);
+           top:270px;right:-190px;
+           
+           
+}
+
+#storyvideo .lastchbtn{bottom:71px;left:143px;
+           font-size:38px;
+           position:static;
+           margin:5px;
+           float:left;
+
+}
+#storyvideo .nextchbtn{bottom:67px;right:146px;
+           font-size:38px;
+           position:static;
+           margin:5px;
+           float:right;
+
+}
+
+
+

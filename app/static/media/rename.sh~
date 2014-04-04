@@ -1,0 +1,28 @@
+#!/bin/bash 
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+
+#find "$SCRIPTPATH" -type f -name "*.wav"
+
+# Make sure globstar is enabled
+shopt -s globstar
+
+for i in **/*.ogg; do
+    echo "processing $i..."
+       
+    #ffmpeg -i "$i" -acodec libvorbis -vcodec libtheora `dirname $i`/video.ogg > /dev/null
+    mv "$i" "$i"+"bak"
+done
+
+for i in **/*.m4v; do
+    echo "processing $i..."
+       
+    #ffmpeg -i "$i" -acodec libvorbis -vcodec libtheora `dirname $i`/video.ogg > /dev/null
+    mv "$i" "$i"+"bak"
+done
+
+
+echo "done"

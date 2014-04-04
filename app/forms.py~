@@ -1,0 +1,27 @@
+from flask.ext.wtf import Form
+from wtforms import TextAreaField, SelectField, TextField, FileField, BooleanField
+from wtforms.validators import Optional, Required, regexp
+
+
+
+class bookForm(Form):
+    books = SelectField(u'')
+    newbooktitle = TextField(u'')
+    newbookident = TextField(u'')
+    remove = BooleanField(u'')
+
+
+class adminForm(Form):
+    chapters = SelectField(u'')
+    title = TextField(u'')
+    chtitle = TextField(u'')
+    text = TextAreaField(u'')
+    image = FileField(u'Image File')
+    audio = FileField(u'Audio File')
+    oggvideo = FileField(u'ogg Video File')
+    mp4video = FileField(u'mp4 Video File')
+    remove = BooleanField(u'')
+    
+    
+
+

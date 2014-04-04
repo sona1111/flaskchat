@@ -1,0 +1,60 @@
+body{background: url('/static/img/parchment.jpg');
+     font-family:verdana,sans-serif;
+     -webkit-transition: background-image 2s ease-in-out;
+     -moz-transition: background-image 2s ease-in-out;
+}
+
+h1{font-size:3em;
+   font-family:verdana;
+   text-align:center;
+}
+
+#maincontainer{width:90%;
+                    margin:0 auto;
+}
+
+
+
+
+
+#maincontent, #sidenav {margin:20px 0 20px 0 ;
+               border:red solid 5px;
+               padding:20px;
+               background-color:rgba(10,10,10,0.7);
+               -webkit-border-radius: 10px;
+               -webkit-transition: border 3s ease-in-out;
+               -moz-border-radius: 10px;
+               -moz-transition: border 3s ease-in-out;
+}
+
+#maincontent{width:70%;
+             float:left;
+}
+
+#sidenav{width:20%;
+         float:right;
+}
+
+#maininside{font-size:2em;
+            font-family:comic-sans,verdana,sans-serif;
+}
+
+#maininside p , #maininside pre{background-color:tan;
+                                padding:7px;
+                                -webkit-border-radius:5px;
+                                -moz-border-radius:5px;
+}
+
+#maintitle{color:white;
+           text-align:center;
+}
+
+#mediabuttons{margin:0 auto;
+              width:160px;
+}
+
+#choices{margin:0 auto;
+         width:190px;
+}
+
+#choices img{margin:10px 0 10px 0;}

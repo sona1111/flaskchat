@@ -1,0 +1,227 @@
+$(document).ready(function(){
+
+/*
+Naming Conventions:
+
+underscores are RESERVED for programming purposes if you start putting underscores in filenames for this website,
+I have no idea how well it would turn out so I would not recommend it. 
+
+self explanitory filenames are for the 'regular' pictures
+_g is for 'glowing' hover images
+_d is for 'disabled' greyscale images
+
+DEPRECATED- subfolders of books contain more subfolders of each chapter
+inside each chapter folder is a html file defining what will be plugged into the main div, 
+as well as the audio and video files. - DEPRECATED
+
+Files stored in database GRIDFS with the following convention. 
+<storypath>-<chapter>-<text,video,audio>-01
+<storypath>-<chapter>-<text,video,audio>-02
+...etc (dont forget the -)
+
+
+
+*/
+
+//also pull the secondary folder names from here
+var storypaths = ['dangerisland'];
+var storytitles = {"dangerisland":"Danger Island"};
+var navActive = false;
+
+
+
+
+//we will try beginning with a naming convention using filenames to build the preloads
+var paths = {};
+var texts = [];
+var audios = [];
+var videos = [];
+
+
+
+for(n=0;n<storypaths.length;n++){
+
+    //populate the stories menu
+    $('#storymenu ul').append('<li>'+storytitles[storypaths[n]]+'</li>');
+    
+    //at this point we need to generalize getting thedirectory name list from the server
+    var chapters = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8'];
+    
+    //generate the arrays
+    for(i=0;i<chapters.length;i++){
+        texts.push(storypaths[n]+'/'+chapters[i]+'/'+'text.html');
+        audios.push(storypaths[n]+'/'+chapters[i]+'/'+'audio.html');
+        videos.push(storypaths[n]+'/'+chapters[i]+'/'+'video.html');
+        
+    };
+    
+    //put the arrays into the main paths object
+    paths[storypaths[n]] = {"title":storytitles[storypaths[n]],
+                            "bgimage":storypaths[n]+'/bgtile.jpg',
+                            "texts":texts,
+                            "audios":audios,
+                            "videos":videos};
+    
+    
+};
+
+$('#storymenu ul li').click(function(){
+
+    beginStory(paths[storypaths[$(this).index()]]);
+    
+
+});
+
+
+
+$('#contactbtn').click(function(){
+    showItem('video','4');
+});
+
+function showItem(type, ch){
+
+    
+    $('maininside div').not('.hidden').addClass('hidden');    
+    n = type+ch;
+    $('#'+n).removeClass('hidden');
+    $('#'+n).load();
+
+};
+
+
+function beginStory(storydata){
+
+
+    //fix the titles to come from the same file structure of everything else
+    //or better yet from mongo!
+    $('#maintitle').text(storydata['title']);
+    
+    $('body').css('background','url('+storydata["bgimage"]+')');
+    
+    $('nav, #maincontent, #sidenav').css('border','#1C6BA0 solid 5px');
+    
+    
+    navSwitch(true);
+    
+    currentCh = 1;
+    mediaType = 'texts';
+    
+    $('#mediabuttons a:nth-child(1)').click(function(){
+        
+        if (currentCh>=2){
+            currentCh -= 1;
+            chSelect(storydata,currentCh,mediaType)
+        }
+    });
+    
+    $('#mediabuttons a:nth-child(2)').click(function(){
+        
+        if (currentCh<=chapters.length-1){
+            currentCh += 1;
+            chSelect(storydata,currentCh,mediaType)
+        }
+    });
+    
+    $('#choices a:nth-child(1)').click(function(){
+        if (mediaType != 'texts'){
+            mediaType = 'texts';
+            chSelect(storydata,currentCh,mediaType)
+        }
+    });
+    
+    $('#choices a:nth-child(2)').click(function(){
+        if (mediaType != 'audios'){
+            mediaType = 'audios';
+            chSelect(storydata,currentCh,mediaType)
+        }
+    });
+    
+    $('#choices a:nth-child(3)').click(function(){
+        if (mediaType != 'videos'){
+            mediaType = 'videos';
+            chSelect(storydata,currentCh,mediaType)
+        }
+    });
+    
+    chSelect(storydata, currentCh, mediaType);
+    
+    
+    
+    
+};
+
+function chSelect(storydata, ch, media){
+    
+    
+    $('#maininside').remove();
+    $('#maintext').append('<div id=maininside></div>');
+    $('#maininside').html('<span class="loading"></span>');
+    
+    
+    console.log(media);
+    console.log(mediaType);
+    if(media != mediaType){
+        console.log('1');
+    };
+    
+    $('#maininside').load(storydata[media][ch-1], function(){
+        
+    if (media == 'videos'){
+        s = storydata[media][ch-1].split('/')
+        s.pop()
+        s = s.join('/')+'/movie.m4v';
+        $('#maininside source').attr('src',s);
+    }
+        
+    if (media == 'audios'){
+        s = storydata[media][ch-1].split('/')
+        s.pop()
+        s = s.join('/')+'/audio.wav';
+        $('#maininside source').attr('src',s);
+    
+    }
+    });
+    
+    
+    
+
+
+};
+
+//this function switches all of the image buttons on the nav sidebar to either disabled or enabeled state.
+function navSwitch(action){
+    if (action == false){
+        $('#sidenav a img').each(function(){
+        var temp = $(this).attr('src');
+        temp = temp.split('.')[0].split('_')[0]+'_d.png';
+        $(this).attr('src',temp);
+        $(this).hover(function(){});
+        navActive = false;
+        $(this).click(function(event){
+            event.preventDefault();
+        });
+    })}
+    else{
+        $('#sidenav a img').each(function(){
+        var temp = $(this).attr('src');
+        temp = temp.split('.')[0].split('_')[0]+'.png';
+        $(this).attr('src',temp);
+        $(this).hover(function(){
+            $(this).attr('src',temp.split('.')[0].split('_')[0]+'_g.png');
+        },function(){
+            $(this).attr('src',temp);
+        });
+        navActive = true;
+        $(this).click(function(event){
+            event.preventDefault();
+        });
+    })};
+
+};
+
+navSwitch(false);
+
+
+
+
+}); //end document ready

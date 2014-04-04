@@ -1,0 +1,78 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>
+
+<meta charset="utf-8" />  
+<title>Paul's Blog</title>
+
+<link rel="stylesheet" type="text/css" href="static/nav.css">
+
+<link href='http://fonts.googleapis.com/css?family=Peralta' rel='stylesheet' type='text/css'>
+
+<style>
+
+textarea{height:400px;width:800px;}
+
+
+</style>
+
+<script type="text/javascript" src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script type="text/javascript" src="static/jquery.min.js"></script>
+
+
+
+
+<script>
+
+$(document).ready(function(){
+
+var socket = io.connect();
+
+    socket.on('update', function(msg) {
+                $('#textoutput').append(msg['post']['data']+'\n');
+                console.log(msg);
+            });
+
+
+
+    $('button').click(function(){
+    
+       
+        socket.emit('sometest', {data: $('#textinput').val()});
+    
+    });
+    
+
+    
+
+
+
+
+
+
+
+}); //end document ready
+
+
+
+
+</script>
+
+</head>
+<body>
+
+
+<h1>Test Thing</h1>
+
+
+
+<textarea id="textoutput"></textarea><br>
+
+<input id='textinput'><button>Post</button>
+
+<span class="loading" style="display:none;margin-top:150px;"></span>
+
+
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>
+<meta charset="utf-8" />  
+<title>Interactive e-books by John McAuliffe</title>
+
+<link rel="stylesheet" type="text/css" href="static/nav.css">
+<link rel="stylesheet" type="text/css" href="static/loading.css">
+<link rel="stylesheet" type="text/css" href="static/other.css">
+
+<script src="static/jquery.min.js"></script>
+<script src="static/main.js"></script>
+
+</head>
+<body>
+
+
+
+<div id="maincontainer">
+
+<h1>Interactive e-books</h1>
+
+<nav id="mainnav"><div>
+
+    <ul>
+        <li id="storymenu">Choose a Story
+            <ul>
+                <!--Append story links here-->
+            </ul>
+        
+        </li>
+
+        <li id="addlinks">Additional Links
+        </li>
+        <li id="contactbtn">Contact
+        </li>
+        <li>About the Author
+        </li>
+
+    </ul>
+
+</div><br></nav>
+
+    <div id="maincontent">
+
+        <article id="maintext">
+        
+            <h2 id="maintitle">
+            {% if numChapters %}
+            {{numChapters}}
+            {% endif %}
+            </h2>
+            
+            <div id="maininside">
+            {% for ch in mediaData['texts'] %}
+    <div id="{{'texts' + loop.index|string}}" class=hidden>
+        {{ch}}
+    </div>
+            {% endfor %}
+            {% for ch in mediaData['audios'] %}
+    <div id="{{'audio' + loop.index|string}}" class=hidden>
+        <audio controls>
+            <source src="{{ch}}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+            {% endfor %}
+            {% for ch in mediaData['videos'] %}
+    <div id="{{'video' + loop.index|string}}" class=hidden>
+        <video preload='none' width="100%" controls>
+            <source src="{{ch}}" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+    </div>
+            {% endfor %}
+            
+            </div>
+        
+
+        
+        
+        </article>
+    
+    </div>
+    
+    <aside id="sidenav">
+    
+        <section id="mediabuttons">
+            <a href=""><img src="static/img/navbuttons/back.png"></a>
+            <a href=""><img src="static/img/navbuttons/continue.png"></a>
+        
+        </section>
+        
+        <section id="choices">
+        
+            <a href=""><img src="static/img/navbuttons/read.png"></a>
+            <a href=""><img src="static/img/navbuttons/listen.png"></a>
+            <a href=""><img src="static/img/navbuttons/watch.png"></a>
+        
+        </section>
+    
+    </aside>
+    
+
+
+
+
+
+</div>
+
+</body>
+</html>
+
